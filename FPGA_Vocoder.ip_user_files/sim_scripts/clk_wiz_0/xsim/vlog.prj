@@ -1,0 +1,8 @@
+verilog xil_defaultlib --include "../../../../../i2s_playback/i2s_playback.gen/sources_1/ip/clk_wiz_0" \
+"../../../../../i2s_playback/i2s_playback.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_clk_wiz.v" \
+"../../../../../i2s_playback/i2s_playback.gen/sources_1/ip/clk_wiz_0/clk_wiz_0.v" \
+
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

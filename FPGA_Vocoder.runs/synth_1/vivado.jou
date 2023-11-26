@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:13:54 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Sun Nov 26 15:54:55 2023
+# Process ID: 787709
+# Current directory: /home/linus/FPGA_Vocoder/FPGA_Vocoder.runs/synth_1
+# Command line: vivado -log i2s_playback.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source i2s_playback.tcl
+# Log file: /home/linus/FPGA_Vocoder/FPGA_Vocoder.runs/synth_1/i2s_playback.vds
+# Journal file: /home/linus/FPGA_Vocoder/FPGA_Vocoder.runs/synth_1/vivado.jou
+# Running On: linus-systemproductname, OS: Linux, CPU Frequency: 3686.266 MHz, CPU Physical cores: 12, Host memory: 16670 MB
+#-----------------------------------------------------------
+source i2s_playback.tcl -notrace
