@@ -39,12 +39,11 @@ ENTITY MovingAverageFilter IS
 END ENTITY MovingAverageFilter;
 
 ARCHITECTURE Behavior OF MovingAverageFilter IS
-    CONSTANT N : INTEGER := 20;
     SIGNAL buffer_data : STD_LOGIC_VECTOR(d_width-1 DOWNTO 0) := (OTHERS => '0');
     SIGNAL buffer_sum  : STD_LOGIC_VECTOR(d_width-1 DOWNTO 0) := (OTHERS => '0');
     SIGNAL buffer_count : INTEGER := 0;
     SIGNAL data_window : STD_LOGIC_VECTOR(d_width-1 DOWNTO 0) := (OTHERS => '0');
-    TYPE ShiftRegisterType IS ARRAY(0 to N-1) OF STD_LOGIC_VECTOR(d_width-1 DOWNTO 0);
+    TYPE ShiftRegisterType IS ARRAY(0 to window_size-1) OF STD_LOGIC_VECTOR(d_width-1 DOWNTO 0);
     SIGNAL shiftRegister : ShiftRegisterType := (others => (others => '0'));
     signal average : STD_LOGIC_VECTOR(d_width-1 DOWNTO 0) := (others => '0');
 BEGIN
@@ -62,18 +61,18 @@ BEGIN
             IF(ws_cnt < window_size-1) THEN
                 ws_cnt := ws_cnt + 1;
             ELSIF update = '1' THEN
-                for i in N-1 downto 1 loop
+                for i in window_size-1 downto 1 loop
                     shiftRegister(i) <= shiftRegister(i-1);
                 end loop;
                 
                 shiftRegister(0) <= data_in;
                 
                 buffer_sum <= (others => '0');
-                for i in 0 to N-1 loop
-                    buffer_sum <= STD_LOGIC_VECTOR(unsigned(buffer_sum) + unsigned(shiftRegister(i)));
+                for i in 0 to window_size-1 loop
+                    buffer_sum <= STD_LOGIC_VECTOR(signed(buffer_sum) + signed(shiftRegister(i)));
                 end loop;
                 
-                average <= STD_LOGIC_VECTOR(unsigned(buffer_sum) / N);
+                average <= STD_LOGIC_VECTOR(signed(buffer_sum) / window_size);
                 
                 
                 --buffer_data <= data_in;
@@ -87,7 +86,7 @@ BEGIN
 
     -- Assign data_out based on intermediate_data
     --data_out <= average;
-    data_out <= shiftRegister(N-1) WHEN filter_on_n = '0' ELSE average;
+    data_out <= shiftRegister(window_size-1) WHEN filter_on_n = '0' ELSE average;
 END ARCHITECTURE Behavior;
 
 --LIBRARY ieee;
